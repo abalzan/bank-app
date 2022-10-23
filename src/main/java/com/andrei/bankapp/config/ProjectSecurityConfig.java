@@ -19,16 +19,16 @@ public class ProjectSecurityConfig {
     @Bean
     protected SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests(auth -> {
-                            auth.antMatchers("/account").authenticated();
-                            auth.antMatchers("/balance").authenticated();
-                            auth.antMatchers("/cards").authenticated();
-                            auth.antMatchers("/loans").authenticated();
-                            auth.antMatchers("/login").permitAll();
-                            auth.antMatchers("/contact").permitAll();
-                            auth.antMatchers("/notices").permitAll();
-                            auth.antMatchers("/register").permitAll();
-                            auth.antMatchers("/").permitAll();
+                .authorizeHttpRequests(auth -> {
+                            auth.requestMatchers("/account").authenticated();
+                            auth.requestMatchers("/balance").authenticated();
+                            auth.requestMatchers("/cards").authenticated();
+                            auth.requestMatchers("/loans").authenticated();
+                            auth.requestMatchers("/login").permitAll();
+                            auth.requestMatchers("/contact").permitAll();
+                            auth.requestMatchers("/notices").permitAll();
+                            auth.requestMatchers("/register").permitAll();
+                            auth.requestMatchers("/").permitAll();
                         }
                 )
                 .formLogin(Customizer.withDefaults())
