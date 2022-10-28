@@ -1,21 +1,21 @@
 package com.andrei.bankapp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-public class Customer {
+public class Customer extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
+    private String name;
     private String email;
+    private String mobileNumber;
+//    @JsonIgnore
     private String password;
     private String role;
 }

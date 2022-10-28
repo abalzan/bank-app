@@ -1,13 +1,20 @@
 package com.andrei.bankapp.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import com.andrei.bankapp.model.Contact;
+import com.andrei.bankapp.service.ContactService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class ContactController {
 
-    @GetMapping("/contact")
-    public String saveContactInquiryDetails(String input) {
-        return "Contact ";
+    private final ContactService contactService;
+
+    @PostMapping("/contact")
+    public Contact saveContactInquiryDetails(@RequestBody Contact contact) {
+        return contactService.saveContactInquiryDetails(contact);
     }
 }

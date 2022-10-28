@@ -7,9 +7,10 @@ CREATE TABLE `customer` (
                             `mobile_number` varchar(20) NOT NULL,
                             `password` varchar(500) NOT NULL,
                             `role` varchar(100) NOT NULL,
-                            `create_date` date DEFAULT NULL,
+                            `created_date` date DEFAULT NULL,
+                            `updated_date` date DEFAULT NULL,
                             PRIMARY KEY (`customer_id`)
 );
 
-INSERT INTO `customer` (`name`,`email`,`mobile_number`, `password`, `role`,`create_date`)
+INSERT INTO `customer` (`name`,`email`,`mobile_number`, `password`, `role`,`created_date`)
 VALUES ('Happy','happy@example.com','9876548337', '$2y$12$oRRbkNfwuR8ug4MlzH5FOeui.//1mkd.RsOAJMbykTSupVy.x/vb2', 'admin',SYSDATE());

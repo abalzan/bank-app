@@ -24,6 +24,7 @@ public class ProjectSecurityConfig {
                             auth.requestMatchers("/balance").authenticated();
                             auth.requestMatchers("/cards").authenticated();
                             auth.requestMatchers("/loans").authenticated();
+                            auth.requestMatchers("/user").authenticated();
                             auth.requestMatchers("/login").permitAll();
                             auth.requestMatchers("/contact").permitAll();
                             auth.requestMatchers("/notices").permitAll();
