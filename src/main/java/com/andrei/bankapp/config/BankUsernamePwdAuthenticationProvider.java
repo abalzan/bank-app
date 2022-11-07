@@ -1,5 +1,6 @@
 package com.andrei.bankapp.config;
 
+import com.andrei.bankapp.model.Authorities;
 import com.andrei.bankapp.model.Customer;
 import com.andrei.bankapp.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
@@ -30,15 +32,19 @@ public class BankUsernamePwdAuthenticationProvider implements AuthenticationProv
         List<Customer> customer = customerRepository.findByEmail(username);
         if (customer.size() > 0) {
             if (passwordEncoder.matches(password, customer.get(0).getPassword())) {
-                List<GrantedAuthority> authorities = new ArrayList<>();
-                authorities.add(new SimpleGrantedAuthority(customer.get(0).getRole()));
-                return new UsernamePasswordAuthenticationToken(username, password, authorities);
+                return new UsernamePasswordAuthenticationToken(username, password, getGrantAuthorities(customer.get(0).getAuthorities()));
             } else {
                 throw new BadCredentialsException("Invalid password");
             }
         } else {
             throw new BadCredentialsException("Invalid username");
         }
+    }
+
+    private List<GrantedAuthority> getGrantAuthorities(Set<Authorities> authorities) {
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        authorities.forEach(authority -> grantedAuthorities.add(new SimpleGrantedAuthority(authority.getName())));
+        return grantedAuthorities;
     }
 
     @Override
