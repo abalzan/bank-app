@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface LoansRepository extends JpaRepository<Loans, Integer> {
 
-    List<Loans> findByCustomerIdOrderByCreatedDateDesc(int customerId);
+    List<Loans> findByCustomerIdOrderByStartDateDesc(int customerId);
 }
