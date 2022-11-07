@@ -14,6 +14,6 @@ public class LoansService {
     private final LoansRepository loansRepository;
 
     public List<Loans> getCustomerLoansDetails(int customerId) {
-        return loansRepository.findByCustomerIdOrderByStartDateDesc(customerId);
+        return loansRepository.findByCustomerIdOrderByCreatedDateDesc(customerId);
     }
 }
