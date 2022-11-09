@@ -33,10 +33,10 @@ public class ProjectSecurityConfig {
                     return corsConfiguration;
                 }).and().csrf().ignoringRequestMatchers( "/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and().authorizeHttpRequests(auth -> {
-                            auth.requestMatchers("/account").authenticated();
-                            auth.requestMatchers("/balance").authenticated();
-                            auth.requestMatchers("/cards").authenticated();
-                            auth.requestMatchers("/loans").authenticated();
+                            auth.requestMatchers("/account").hasRole("USER");
+                            auth.requestMatchers("/balance").hasAnyRole("USER", "ADMIN");
+                            auth.requestMatchers("/cards").hasRole("USER");
+                            auth.requestMatchers("/loans").hasRole("USER");
                             auth.requestMatchers("/user").authenticated();
                             auth.requestMatchers("/contact").permitAll();
                             auth.requestMatchers("/notices").permitAll();
