@@ -1,11 +1,13 @@
 package com.andrei.bankapp.config;
 
+import com.andrei.bankapp.filter.RequestValidationBeforeFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 
@@ -32,7 +34,8 @@ public class ProjectSecurityConfig {
                     corsConfiguration.setMaxAge(3600L);
                     return corsConfiguration;
                 }).and().csrf().ignoringRequestMatchers( "/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and().authorizeHttpRequests(auth -> {
+                .and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+                .authorizeHttpRequests(auth -> {
                             auth.requestMatchers("/account").hasRole("USER");
                             auth.requestMatchers("/balance").hasAnyRole("USER", "ADMIN");
                             auth.requestMatchers("/cards").hasRole("USER");
