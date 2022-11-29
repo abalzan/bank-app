@@ -48,7 +48,7 @@ public class ProjectSecurityConfig {
                             auth.requestMatchers("/account").hasRole("USER");
                             auth.requestMatchers("/balance").hasAnyRole("USER", "ADMIN");
                             auth.requestMatchers("/cards").hasRole("USER");
-                            auth.requestMatchers("/loans").hasRole("USER");
+                            auth.requestMatchers("/loans").authenticated();
                             auth.requestMatchers("/user").authenticated();
                             auth.requestMatchers("/contact").permitAll();
                             auth.requestMatchers("/notices").permitAll();
