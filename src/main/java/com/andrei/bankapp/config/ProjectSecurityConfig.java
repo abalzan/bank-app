@@ -47,8 +47,8 @@ public class ProjectSecurityConfig {
                 .authorizeHttpRequests(auth -> {
                             auth.requestMatchers("/account").hasRole("USER");
                             auth.requestMatchers("/balance").hasAnyRole("USER", "ADMIN");
-                            auth.requestMatchers("/cards").hasRole("USER");
-                            auth.requestMatchers("/loans").authenticated();
+                            auth.requestMatchers("/cards").authenticated(); //use for PostAuthorize sample
+                            auth.requestMatchers("/loans").authenticated(); //use PreAuthorize sample
                             auth.requestMatchers("/user").authenticated();
                             auth.requestMatchers("/contact").permitAll();
                             auth.requestMatchers("/notices").permitAll();
