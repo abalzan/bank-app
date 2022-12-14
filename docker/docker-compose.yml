@@ -6,13 +6,32 @@ services:
     image: mysql:8
     restart: always
     ports:
-      - 3306:3306
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: springSecurity
       MYSQL_DATABASE: bank
       MYSQL_USER: bank
       MYSQL_PASSWORD: springSecurity
 
+  keycloak-container:
+    container_name: keycloak-container
+    image: quay.io/keycloak/keycloak:20.0.2
+    command: start-dev
+    restart: always
+    ports:
+      - "8180:8080"
+
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      DB_VENDOR: mysql
+      DB_ADDR: mysql-container
+      DB_DATABASE: bank
+      DB_USER: bank
+      DB_PASSWORD: springSecurity
+      DB_PORT: 3306
+    depends_on:
+      - mysql-container
 networks:
   default:
     external:
