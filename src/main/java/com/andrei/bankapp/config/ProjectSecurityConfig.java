@@ -1,17 +1,11 @@
 package com.andrei.bankapp.config;
 
-import com.andrei.bankapp.filter.AuthoritiesLoggingAfterFilter;
-import com.andrei.bankapp.filter.JWTTokenGeneratorFilter;
-import com.andrei.bankapp.filter.JWTValidatorFilter;
-import com.andrei.bankapp.filter.RequestValidationBeforeFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 
@@ -22,12 +16,10 @@ import java.util.Collections;
 public class ProjectSecurityConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeyCloakRoleConverter());
+
         http.securityContext().requireExplicitSave(false)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().cors().configurationSource(request -> {
@@ -40,11 +32,7 @@ public class ProjectSecurityConfig {
                     corsConfiguration.setMaxAge(3600L);
                     return corsConfiguration;
                 }).and().csrf().ignoringRequestMatchers( "/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
-                .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
-                .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
-                .addFilterBefore(new JWTValidatorFilter(), BasicAuthenticationFilter.class)
-                .authorizeHttpRequests(auth -> {
+                    .and().authorizeHttpRequests(auth -> {
                             auth.requestMatchers("/account").hasRole("USER");
                             auth.requestMatchers("/balance").hasAnyRole("USER", "ADMIN");
                             auth.requestMatchers("/cards").authenticated(); //use for PostAuthorize sample
@@ -54,9 +42,7 @@ public class ProjectSecurityConfig {
                             auth.requestMatchers("/notices").permitAll();
                             auth.requestMatchers("/register").permitAll();
                        }
-                )
-                .formLogin()
-                .and().httpBasic();
+                ).oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter);
 
         return http.build();
     }

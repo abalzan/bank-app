@@ -12,7 +12,6 @@ import java.util.List;
 public class AccountTransactionsService {
     private final AccountTransactionsRepository accountTransactionsRepository;
 
-
     public List<AccountTransactions> getTransactionsByCustomer(int customerId) {
         return accountTransactionsRepository.findByCustomerIdOrderByTransactionDateDesc(customerId);
     }
