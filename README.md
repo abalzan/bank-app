@@ -23,3 +23,6 @@ For stopping our stack:
 
 `$ docker-compose stop`
 
+## keycloak
+to access all the keycloak urls, you need to add the following entry to your hosts file:
+`http://localhost:8180/realms/bankdev/.well-known/openid-configuration`
