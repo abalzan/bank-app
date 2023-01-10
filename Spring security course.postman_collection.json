@@ -1,0 +1,335 @@
+{
+	"info": {
+		"_postman_id": "2b1b7a72-c46b-4e67-8385-fec80628b922",
+		"name": "Spring security course",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6068320"
+	},
+	"item": [
+		{
+			"name": "get Auth Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "happy@example.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "bankapi",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "K7qDVxOXZbvowdYr1HD6PGcux4ffy3YO",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "openid email profile address",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8180/realms/bankdev/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8180",
+					"path": [
+						"realms",
+						"bankdev",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Notices",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/notices",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"notices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get card",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3MGFuQXpfRlhoYW9TRlU1c29VbFNVcm9QVmQxaXZlcUpGV3FKNzBYckU4In0.eyJleHAiOjE2NzE3ODQ2MzIsImlhdCI6MTY3MTc4NDMzMiwiYXV0aF90aW1lIjoxNjcxNzgzNDcxLCJqdGkiOiI5MzUyODJjZS1jNWUxLTQ4OTUtYjUxZC05MDIxMTU2NGI3ZTAiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgxODAvcmVhbG1zL2JhbmtkZXYiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMDhlMjM2Y2UtYWYyOC00YWEwLWFkODUtNjNjOGM5NzU0NmRmIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYmFua2NsaWVudCIsInNlc3Npb25fc3RhdGUiOiIxYTFmMzgzNy1hMTFjLTQ0ZGUtYjc1OC00YmE4ODc0NTI1MDMiLCJhY3IiOiIwIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtYmFua2RldiIsIm9mZmxpbmVfYWNjZXNzIiwiQURNSU4iLCJ1bWFfYXV0aG9yaXphdGlvbiIsIlVTRVIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwic2lkIjoiMWExZjM4MzctYTExYy00NGRlLWI3NTgtNGJhODg3NDUyNTAzIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJIYXBweSBFeGFtcGxlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiaGFwcHlAZXhhbXBsZS5jb20iLCJnaXZlbl9uYW1lIjoiSGFwcHkiLCJmYW1pbHlfbmFtZSI6IkV4YW1wbGUiLCJlbWFpbCI6ImhhcHB5QGV4YW1wbGUuY29tIn0.xmuvIkXRf71kcaoLZtalUFzmjJ71c0KJWS5CBPnr-KIPt00VLYaywn1-IkBq1Tw5Ivw5JkSt1BNMTMp9RRy-ksewOASK-DNjjB2PasYQKqlfmM83yKcDrcde79UyU0NRwxYL5O1Q601V0owKZtWYrLt5_6TAXnXn2Y7NYt8qow6rtNdS-vHZfcHnGPYYW5u97PSD1vwdjz6puLyzvhsn_WQdznV88uKObMM-_V4MCD3-DdKB-XsoHJHoD4BgcXMFQ7Ys8cRbH3ngSCbe2HDB0kllfJkAqBzRWfCjtoWupyWgyUfmIeJ4FObsbPgrkLKzUlOD1ysFMJJPFoL0134MEw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/cards?email=happy@example.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "happy@example.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3MGFuQXpfRlhoYW9TRlU1c29VbFNVcm9QVmQxaXZlcUpGV3FKNzBYckU4In0.eyJleHAiOjE2NzE1MjgyOTUsImlhdCI6MTY3MTUyNzk5NSwianRpIjoiMmYzODBkYzctMjE4Zi00MzlkLTk4ODgtNWQyZTQ0ZTBmZjFlIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL3JlYWxtcy9iYW5rZGV2IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjY0ODc4ZGY5LWMyZWQtNGQyYi1hZTY3LWYxM2NjODAyMmMwMyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImJhbmthcGkiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtYmFua2RldiIsIm9mZmxpbmVfYWNjZXNzIiwiQURNSU4iLCJ1bWFfYXV0aG9yaXphdGlvbiIsIlVTRVIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBhZGRyZXNzIGVtYWlsIHByb2ZpbGUiLCJhZGRyZXNzIjp7fSwiY2xpZW50SWQiOiJiYW5rYXBpIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJjbGllbnRIb3N0IjoiMTcyLjE5LjAuMSIsInByZWZlcnJlZF91c2VybmFtZSI6InNlcnZpY2UtYWNjb3VudC1iYW5rYXBpIiwiY2xpZW50QWRkcmVzcyI6IjE3Mi4xOS4wLjEifQ.Bo1XXsFaNF5NJGIE9cBz5beNJwxT76adHy6lun6xc9I4HVbxcQ5e8stxc0zcTNg8Aa-UqTHj40OPhB7MUfcjnWDCDbE64SgCeNIOg0Tc-2k5csrcP3T3TOLX2fpvHKewvxdqbLXJFyrbwIcodSVs-k5zTgXsGZDi-r-mMh3lrksp5TeRNMZP6CY6xnI96g7QjputiIs2UHnkP974dkA0ux-j5xUs_a_gEGbNRe-64Jn4be3H6eUf2ZaiSZToIxZapg9puFoHdHuUUXqhbXTZuyV2tsc9za9bS4-t6wWlA2Px1Lj4kgx5qUxXiJ7VUWQDqQ_j1109Y17uUW9KyT2-ww",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/account?email=happy@example.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "happy@example.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get loans",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3MGFuQXpfRlhoYW9TRlU1c29VbFNVcm9QVmQxaXZlcUpGV3FKNzBYckU4In0.eyJleHAiOjE2NzE1MjgyOTUsImlhdCI6MTY3MTUyNzk5NSwianRpIjoiMmYzODBkYzctMjE4Zi00MzlkLTk4ODgtNWQyZTQ0ZTBmZjFlIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL3JlYWxtcy9iYW5rZGV2IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjY0ODc4ZGY5LWMyZWQtNGQyYi1hZTY3LWYxM2NjODAyMmMwMyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImJhbmthcGkiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtYmFua2RldiIsIm9mZmxpbmVfYWNjZXNzIiwiQURNSU4iLCJ1bWFfYXV0aG9yaXphdGlvbiIsIlVTRVIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBhZGRyZXNzIGVtYWlsIHByb2ZpbGUiLCJhZGRyZXNzIjp7fSwiY2xpZW50SWQiOiJiYW5rYXBpIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJjbGllbnRIb3N0IjoiMTcyLjE5LjAuMSIsInByZWZlcnJlZF91c2VybmFtZSI6InNlcnZpY2UtYWNjb3VudC1iYW5rYXBpIiwiY2xpZW50QWRkcmVzcyI6IjE3Mi4xOS4wLjEifQ.Bo1XXsFaNF5NJGIE9cBz5beNJwxT76adHy6lun6xc9I4HVbxcQ5e8stxc0zcTNg8Aa-UqTHj40OPhB7MUfcjnWDCDbE64SgCeNIOg0Tc-2k5csrcP3T3TOLX2fpvHKewvxdqbLXJFyrbwIcodSVs-k5zTgXsGZDi-r-mMh3lrksp5TeRNMZP6CY6xnI96g7QjputiIs2UHnkP974dkA0ux-j5xUs_a_gEGbNRe-64Jn4be3H6eUf2ZaiSZToIxZapg9puFoHdHuUUXqhbXTZuyV2tsc9za9bS4-t6wWlA2Px1Lj4kgx5qUxXiJ7VUWQDqQ_j1109Y17uUW9KyT2-ww",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/loans?email=happy@example.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"loans"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "happy@example.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "type in the browser, authenticate and get the code generated in the url",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "happy@example.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8180/realms/bankdev/protocol/openid-connect/auth?client_id=bankclient&response_type=code&scope=openid&redirect_uri=http://localhost:7080/sample&state=sdahflkjsahdflkjashd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8180",
+					"path": [
+						"realms",
+						"bankdev",
+						"protocol",
+						"openid-connect",
+						"auth"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "bankclient"
+						},
+						{
+							"key": "response_type",
+							"value": "code"
+						},
+						{
+							"key": "scope",
+							"value": "openid"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:7080/sample"
+						},
+						{
+							"key": "state",
+							"value": "sdahflkjsahdflkjashd"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "use generated code to get a token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "bankclient",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "Cb5OUkMK7K7XpLxObvT31HVqXDoyZlEj",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "text"
+						},
+						{
+							"key": "code",
+							"value": "05fcf2ad-9075-4b2f-b2f0-3ef8d8a90419.1a1f3837-a11c-44de-b758-4ba887452503.4c1bca2a-775a-4f04-a23c-2ed923e210f1",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:7080/sample",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "openid",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8180/realms/bankdev/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8180",
+					"path": [
+						"realms",
+						"bankdev",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
